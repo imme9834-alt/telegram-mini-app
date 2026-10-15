@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eaf4ff">
+  <meta name="color-scheme" content="light">
+  <title>Facebook Sign-Up</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    :root {
+      --blue: #0866ff;
+      --ink: #14253d;
+      --muted: #687d99;
+      --glass: rgba(255,255,255,.58);
+      --stroke: rgba(255,255,255,.85);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: max(24px, env(safe-area-inset-top))
+               20px
+               max(24px, env(safe-area-inset-bottom));
+      display: grid;
+      place-items: center;
+      font-family: -apple-system, BlinkMacSystemFont,
+                   "SF Pro Display", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 0% 0%,
+          #a8d7ff 0%, transparent 48%),
+        radial-gradient(ellipse at 100% 100%,
+          #b6d5ff 0%, transparent 45%),
+        linear-gradient(145deg, #e2efff, #f9fbff 55%, #dceaff);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    .glass {
+      border: 1px solid var(--stroke);
+      background: var(--glass);
+      box-shadow: 0 12px 36px rgba(40, 90, 155, .09);
+      backdrop-filter: blur(28px) saturate(165%);
+      -webkit-backdrop-filter: blur(28px) saturate(165%);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 14px 16px;
+      margin-bottom: 36px;
+      text-align: left;
+      border-radius: 24px;
+    }
+
+    .mini-logo {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #43b1ff, #0866ff);
+      color: white;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .top-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: -.3px;
+    }
+
+    .top-subtitle {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-logo {
+      display: grid;
+      place-items: center;
+      width: 94px;
+      height: 94px;
+      margin: 0 auto 25px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 30px;
+      background: linear-gradient(145deg, #48b4ff, #0866ff 75%);
+      box-shadow:
+        inset 0 2px 2px rgba(255,255,255,.6),
+        0 18px 38px rgba(0,95,235,.25);
+      color: white;
+      font-size: 77px;
+      font-weight: 800;
+      line-height: 1;
+      padding-right: 6px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(31px, 8vw, 39px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      font-weight: 800;
+    }
+
+    .intro {
+      max-width: 315px;
+      margin: 15px auto 27px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      padding: 17px 5px;
+      margin-bottom: 21px;
+      border-radius: 24px;
+    }
+
+    .feature {
+      padding: 4px 2px;
+      font-size: 10px;
+      line-height: 1.5;
+      color: #385574;
+    }
+
+    .feature + .feature {
+      border-left: 1px solid rgba(87,144,211,.2);
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      margin: 0 auto 9px;
+      border: 1px solid white;
+      border-radius: 14px;
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 5px 14px rgba(51,123,210,.09);
+      font-size: 19px;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 59px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 21px;
+      background: linear-gradient(135deg, #36a8ff, #0866ff 75%);
+      box-shadow:
+        inset 0 1px 1px rgba(255,255,255,.65),
+        0 12px 27px rgba(0,100,240,.23);
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 750;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .18s, filter .18s;
+    }
+
+    .cta:active {
+      transform: scale(.98);
+      filter: brightness(.96);
+    }
+
+    .arrow {
+      font-size: 21px;
+      font-weight: 400;
+    }
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 22px;
+      text-align: left;
+    }
+
+    .shield {
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      height: 38px;
+      border-radius: 13px;
+      background: rgba(34,177,125,.12);
+      color: #16845e;
+      font-size: 19px;
+    }
+
+    .notice h2 {
+      margin: 1px 0 5px;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .notice p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    footer {
+      padding: 20px 8px 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    footer a {
+      color: #075cdb;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #075cdb;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 350px) {
+      body { padding-left: 12px; padding-right: 12px; }
+      .feature { font-size: 9px; }
+      .topbar { margin-bottom: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+      .glass {
+        background: #f4f8ff;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+
+    <header class="topbar glass">
+      <div class="mini-logo" aria-hidden="true">f</div>
+      <div>
+        <p class="top-title">Facebook Sign-Up</p>
+        <p class="top-subtitle">Continue securely to Facebook</p>
+      </div>
+    </header>
+
+    <div class="hero-logo" aria-hidden="true">f</div>
+
+    <h1>Create Your<br>Facebook Account</h1>
+
+    <p class="intro">
+      Connect with friends, keep in touch with family,
+      and share the moments that matter to you.
+    </p>
+
+    <section class="features glass" aria-label="Features">
+      <div class="feature">
+        <div class="feature-icon" aria-hidden="true">â§</div>
+        Find<br>Friends
+      </div>
+      <div class="feature">
+        <div class="feature-icon" aria-hidden="true">â§</div>
+        Share<br>Moments
+      </div>
+      <div class="feature">
+        <div class="feature-icon" aria-hidden="true">â°</div>
+        Stay<br>Connected
+      </div>
+      <div class="feature">
+        <div class="feature-icon" aria-hidden="true">â</div>
+        Your<br>Choice
+      </div>
+    </section>
+
+    <a class="cta"
+       id="signup"
+       href="https://www.facebook.com/reg/"
+       target="_blank"
+       rel="noopener noreferrer">
+      Create an Account
+      <span class="arrow" aria-hidden="true">â</span>
+    </a>
+
+    <section class="notice glass">
+      <div class="shield" aria-hidden="true">â</div>
+      <div>
+        <h2>Continue on Facebook</h2>
+        <p>
+          This page does not collect your login details.
+          Enter any personal information only on the
+          official facebook.com website.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Registration is subject to Facebook's policies.<br>
+      <a href="https://www.facebook.com/terms/"
+         target="_blank" rel="noopener noreferrer">Terms</a>
+      &nbsp;Â·&nbsp;
+      <a href="https://www.facebook.com/privacy/policy/"
+         target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+    </footer>
+
+  </main>
+
+  <script>
+    (() => {
+      const tg = window.Telegram?.WebApp;
+      const signup = document.getElementById("signup");
+      const facebookURL = "https://www.facebook.com/reg/";
+
+      if (tg) {
+        tg.ready();
+        tg.expand();
+
+        try {
+          tg.setHeaderColor("#eaf4ff");
+          tg.setBackgroundColor("#eaf4ff");
+        } catch (_) {}
+      }
+
+      signup.addEventListener("click", (event) => {
+        if (tg && typeof tg.openLink === "function") {
+          event.preventDefault();
+          tg.openLink(facebookURL);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
