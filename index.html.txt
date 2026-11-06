@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
         content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#eaf4ff">
   <meta name="color-scheme" content="light">
+
   <title>Facebook Sign-Up</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -188,6 +190,14 @@
       filter: brightness(.96);
     }
 
+    .login-cta {
+      margin-top: 12px;
+      background: linear-gradient(135deg, #ffffff, #e5efff);
+      color: #0866ff;
+      border: 1px solid rgba(8,102,255,.2);
+      box-shadow: 0 8px 20px rgba(0,80,200,.08);
+    }
+
     .arrow {
       font-size: 21px;
       font-weight: 400;
@@ -262,10 +272,130 @@
         -webkit-backdrop-filter: none;
       }
     }
+
+    /* ADMIN FLOATING BUTTON */
+
+    #miniAdminButton {
+      display: none;
+      position: fixed;
+      right: 17px;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      z-index: 99998;
+      width: 49px;
+      height: 49px;
+      border: 1px solid #52647e;
+      border-radius: 50%;
+      background: #172438;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 5px 20px #0005;
+      cursor: pointer;
+    }
+
+    /* ADMIN PANEL */
+
+    #miniAdminPanel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(0,0,0,.58);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    #miniAdminPanel.open {
+      display: flex;
+    }
+
+    .admin-card {
+      background: #111d30;
+      color: white;
+      width: 100%;
+      max-width: 390px;
+      max-height: 85dvh;
+      overflow-y: auto;
+      border-radius: 23px;
+      padding: 22px;
+      box-shadow: 0 15px 50px #0007;
+    }
+
+    .admin-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .admin-title {
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .top-reset {
+      padding: 8px 12px;
+      border: 1px solid #a34a58;
+      border-radius: 10px;
+      background: #762f3c;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .admin-description {
+      color: #aab7c9;
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 8px 0 20px;
+    }
+
+    .admin-action {
+      width: 100%;
+      padding: 15px;
+      margin: 6px 0;
+      background: #203149;
+      color: white;
+      border: 1px solid #344861;
+      border-radius: 13px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .admin-action.danger {
+      background: #762f3c;
+      border-color: #a34a58;
+    }
+
+    .admin-action.close {
+      background: #354256;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    #adminStatus {
+      font-size: 12px;
+      color: #70e4aa;
+      margin-top: 14px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-note {
+      color: #ffcc91;
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
   </style>
 </head>
 
 <body>
+
   <main class="app">
 
     <header class="topbar glass">
@@ -286,22 +416,27 @@
     </p>
 
     <section class="features glass" aria-label="Features">
+
       <div class="feature">
-        <div class="feature-icon" aria-hidden="true">â§</div>
+        <div class="feature-icon">♧</div>
         Find<br>Friends
       </div>
+
       <div class="feature">
-        <div class="feature-icon" aria-hidden="true">â§</div>
+        <div class="feature-icon">▧</div>
         Share<br>Moments
       </div>
+
       <div class="feature">
-        <div class="feature-icon" aria-hidden="true">â°</div>
+        <div class="feature-icon">☰</div>
         Stay<br>Connected
       </div>
+
       <div class="feature">
-        <div class="feature-icon" aria-hidden="true">â</div>
+        <div class="feature-icon">✓</div>
         Your<br>Choice
       </div>
+
     </section>
 
     <a class="cta"
@@ -310,37 +445,130 @@
        target="_blank"
        rel="noopener noreferrer">
       Create an Account
-      <span class="arrow" aria-hidden="true">â</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="cta login-cta"
+       id="login"
+       href="https://www.facebook.com/login/"
+       target="_blank"
+       rel="noopener noreferrer">
+      Log in to Existing Account
+      <span class="arrow">→</span>
     </a>
 
     <section class="notice glass">
-      <div class="shield" aria-hidden="true">â</div>
+
+      <div class="shield">✓</div>
+
       <div>
         <h2>Continue on Facebook</h2>
         <p>
           This page does not collect your login details.
-          Enter any personal information only on the
+          Enter personal information only on the
           official facebook.com website.
         </p>
       </div>
+
     </section>
 
     <footer>
       Registration is subject to Facebook's policies.<br>
+
       <a href="https://www.facebook.com/terms/"
-         target="_blank" rel="noopener noreferrer">Terms</a>
-      &nbsp;Â·&nbsp;
+         target="_blank" rel="noopener noreferrer">
+        Terms
+      </a>
+
+      &nbsp;·&nbsp;
+
       <a href="https://www.facebook.com/privacy/policy/"
-         target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+         target="_blank" rel="noopener noreferrer">
+        Privacy Policy
+      </a>
     </footer>
 
   </main>
 
+  <!-- FLOATING ADMIN BUTTON -->
+
+  <button id="miniAdminButton"
+          aria-label="Open admin panel">
+    ⚙
+  </button>
+
+  <!-- ADMIN CONTROL PANEL -->
+
+  <div id="miniAdminPanel">
+
+    <div class="admin-card">
+
+      <div class="admin-heading">
+        <div class="admin-title">
+          ⚙ Admin Control Centre
+        </div>
+
+        <button class="top-reset" id="topReset">
+          Reset
+        </button>
+      </div>
+
+      <div class="admin-description">
+        Manage your Mini App's local storage,
+        sessions and cached website files.
+      </div>
+
+      <button class="admin-action" id="clearStorage">
+        🗑 Clear saved app data
+      </button>
+
+      <button class="admin-action" id="clearSessions">
+        🔄 Clear app sessions
+      </button>
+
+      <button class="admin-action" id="clearCache">
+        🧹 Clear app cache
+      </button>
+
+      <button class="admin-action danger" id="fullReset">
+        ⚠ Full local factory reset
+      </button>
+
+      <div id="adminStatus">
+        Admin system ready.
+      </div>
+
+      <div class="admin-note">
+        Only matching app-prefixed local data is cleared.
+        Other users, Facebook accounts and server data
+        are not affected.
+      </div>
+
+      <button class="admin-action close" id="closeAdmin">
+        Close panel
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- MAIN APP SCRIPT -->
+
   <script>
     (() => {
+
       const tg = window.Telegram?.WebApp;
-      const signup = document.getElementById("signup");
-      const facebookURL = "https://www.facebook.com/reg/";
+
+      const links = [
+        {
+          element: document.getElementById("signup"),
+          url: "https://www.facebook.com/reg/"
+        },
+        {
+          element: document.getElementById("login"),
+          url: "https://www.facebook.com/login/"
+        }
+      ];
 
       if (tg) {
         tg.ready();
@@ -352,13 +580,303 @@
         } catch (_) {}
       }
 
-      signup.addEventListener("click", (event) => {
-        if (tg && typeof tg.openLink === "function") {
-          event.preventDefault();
-          tg.openLink(facebookURL);
-        }
+      links.forEach(({ element, url }) => {
+        element.addEventListener("click", event => {
+          if (tg && typeof tg.openLink === "function") {
+            event.preventDefault();
+            tg.openLink(url);
+          }
+        });
       });
+
     })();
   </script>
+
+  <!-- ADMIN RESET SCRIPT -->
+
+  <script>
+    (() => {
+
+      /* CHANGE THIS TO YOUR TELEGRAM NUMERIC ID */
+
+      const ADMIN_TELEGRAM_ID = "YOUR_TELEGRAM_NUMERIC_ID";
+
+      /* APP-SPECIFIC STORAGE PREFIX */
+
+      const APP_PREFIX = "fbmini_";
+
+      const adminButton =
+        document.getElementById("miniAdminButton");
+
+      const panel =
+        document.getElementById("miniAdminPanel");
+
+      const status =
+        document.getElementById("adminStatus");
+
+      const user =
+        window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+      /* ADMIN CHECK */
+
+      if (
+        !user ||
+        ADMIN_TELEGRAM_ID === "YOUR_TELEGRAM_NUMERIC_ID" ||
+        String(user.id) !== ADMIN_TELEGRAM_ID
+      ) {
+        return;
+      }
+
+      adminButton.style.display = "block";
+
+      /* PANEL OPEN AND CLOSE */
+
+      adminButton.onclick = () => {
+        panel.classList.add("open");
+      };
+
+      document.getElementById("closeAdmin").onclick = () => {
+        panel.classList.remove("open");
+      };
+
+      panel.addEventListener("click", event => {
+        if (event.target === panel) {
+          panel.classList.remove("open");
+        }
+      });
+
+      function report(message) {
+        status.textContent = message;
+      }
+
+      function confirmAction(message) {
+        return window.confirm(message);
+      }
+
+      /* CLEAR APP STORAGE */
+
+      function clearStorage() {
+
+        if (!confirmAction(
+          "Clear this app's saved browser data?"
+        )) return;
+
+        let removed = 0;
+
+        for (const storage of [
+          localStorage,
+          sessionStorage
+        ]) {
+
+          const keys = [];
+
+          for (let i = 0; i < storage.length; i++) {
+            const key = storage.key(i);
+
+            if (key?.startsWith(APP_PREFIX)) {
+              keys.push(key);
+            }
+          }
+
+          keys.forEach(key => {
+            storage.removeItem(key);
+            removed++;
+          });
+
+        }
+
+        report("✓ Removed " + removed + " saved entries.");
+      }
+
+      /* CLEAR APP SESSIONS */
+
+      function clearSessions() {
+
+        if (!confirmAction(
+          "Clear this app's saved sessions?"
+        )) return;
+
+        const keys = [];
+
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i);
+
+          if (key?.startsWith(APP_PREFIX)) {
+            keys.push(key);
+          }
+        }
+
+        keys.forEach(key => {
+          sessionStorage.removeItem(key);
+        });
+
+        report("✓ Removed " + keys.length +
+          " session entries.");
+      }
+
+      /* CLEAR APP CACHE */
+
+      async function clearCache() {
+
+        if (!confirmAction(
+          "Clear this app's named cache entries?"
+        )) return;
+
+        try {
+
+          let removed = 0;
+
+          if ("caches" in window) {
+
+            const names = await caches.keys();
+
+            for (const name of names) {
+
+              if (name.startsWith(APP_PREFIX)) {
+
+                if (await caches.delete(name)) {
+                  removed++;
+                }
+
+              }
+
+            }
+
+          }
+
+          report("✓ Removed " + removed +
+            " matching cache entries.");
+
+        } catch (error) {
+
+          report("Cache error: " + error.message);
+
+        }
+      }
+
+      /* FULL LOCAL RESET */
+
+      async function fullReset() {
+
+        if (!confirmAction(
+          "FULL LOCAL RESET\n\n" +
+          "This clears this app's prefixed browser data, " +
+          "matching IndexedDB databases and caches.\n\n" +
+          "It does not delete other users' data.\n\n" +
+          "Continue?"
+        )) return;
+
+        report("Starting local reset...");
+
+        try {
+
+          /* LOCAL AND SESSION STORAGE */
+
+          for (const storage of [
+            localStorage,
+            sessionStorage
+          ]) {
+
+            const keys = [];
+
+            for (let i = 0; i < storage.length; i++) {
+              const key = storage.key(i);
+
+              if (key?.startsWith(APP_PREFIX)) {
+                keys.push(key);
+              }
+            }
+
+            keys.forEach(key => storage.removeItem(key));
+
+          }
+
+          report("✓ Browser storage checked.");
+
+          /* INDEXEDDB */
+
+          if (indexedDB.databases) {
+
+            const databases = await indexedDB.databases();
+
+            for (const db of databases) {
+
+              if (!db.name?.startsWith(APP_PREFIX)) continue;
+
+              await new Promise((resolve, reject) => {
+
+                const request =
+                  indexedDB.deleteDatabase(db.name);
+
+                request.onsuccess = resolve;
+
+                request.onerror = () =>
+                  reject(request.error);
+
+                request.onblocked = () =>
+                  reject(new Error("Database deletion blocked"));
+
+              });
+
+            }
+
+          }
+
+          report("✓ Matching databases cleared.");
+
+          /* CACHE STORAGE */
+
+          if ("caches" in window) {
+
+            const names = await caches.keys();
+
+            for (const name of names) {
+
+              if (name.startsWith(APP_PREFIX)) {
+                await caches.delete(name);
+              }
+
+            }
+
+          }
+
+          report("✓ Matching caches cleared.");
+
+          /* RELOAD */
+
+          report("Local reset completed. Reloading...");
+
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+
+        } catch (error) {
+
+          report("Reset incomplete: " + error.message);
+
+        }
+
+      }
+
+      /* CONNECT BUTTONS */
+
+      document.getElementById("clearStorage")
+        .onclick = clearStorage;
+
+      document.getElementById("clearSessions")
+        .onclick = clearSessions;
+
+      document.getElementById("clearCache")
+        .onclick = clearCache;
+
+      document.getElementById("fullReset")
+        .onclick = fullReset;
+
+      document.getElementById("topReset")
+        .onclick = fullReset;
+
+    })();
+  </script>
+
 </body>
 </html>
